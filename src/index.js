@@ -26,7 +26,7 @@ function initStore(makeStore, initialState, context, config) {
     // Always make a new store if server
     if (isServer) {
         if (!req._store) {
-            req._store = makeStore(initialState, options);
+            req._store = makeStore(initialState, isServer, options);
         }
         return req._store;
     }
@@ -35,7 +35,7 @@ function initStore(makeStore, initialState, context, config) {
 
     // Memoize store if client
     if (!window[storeKey]) {
-        window[storeKey] = makeStore(initialState, options);
+        window[storeKey] = makeStore(initialState, isServer, options);
     }
 
     return window[storeKey];
